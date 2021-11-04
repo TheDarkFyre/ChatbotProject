@@ -36,6 +36,28 @@ public class Magpie4
 			response = "Say something, please.";
 		}
 
+		// Casual Introductions
+		else if (findKeyword(statement, "hello") >= 0
+				|| findKeyword(statement, "hi") >= 0
+				|| findKeyword(statement, "hey") >= 0)
+		{
+			final int NUMBER_OF_RESPONSES = 3;
+			double r = Math.random();
+			int whichResponse = (int)(r * NUMBER_OF_RESPONSES);
+			if (whichResponse == 0)
+			{
+				response = "Hello.";
+			}
+			else if (whichResponse == 1)
+			{
+				response = "Hi.";
+			}
+			else if (whichResponse == 2)
+			{
+				response = "Hey.";
+			}
+		}
+
 		else if (findKeyword(statement, "no") >= 0)
 		{
 			response = "Why so negative?";
