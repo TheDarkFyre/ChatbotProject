@@ -20,7 +20,10 @@ public class Magpie4
 	{
 		return "Hello, let's talk.";
 	}
+
+	public boolean aboutGames = false;
 	
+
 	/**
 	 * Gives a response to a user statement
 	 * 
@@ -31,9 +34,74 @@ public class Magpie4
 	public String getResponse(String statement)
 	{
 		String response = "";
+
+		
 		if (statement.length() == 0)
 		{
 			response = "Say something, please.";
+		}
+
+		// else if (findKeyword(statement, "game") >= 0 || findKeyword(statement, "games") >= 0)
+		// {
+		// 	response = "Do you play video games?";
+		// 	return response;
+		// }
+
+		// if (aboutGames == true{
+
+		// }
+		// 	if (findKeyword(statement, "yes") >= 0 || findKeyword(statement, "yeah") >= 0){
+		// 		aboutGames = true;
+		// 	}
+		// 	else {
+		// 		response = "You should try playing some games, they could be fun.";
+		// 	}
+		// 	if (aboutGames = true){
+		// 		response = "Do you prefer PC or conole?";
+		// 		if (findKeyword(statement, "PC") >= 0){
+		// 			response = "Nice. What kind of games do you play on it?";
+		// 		}
+		// 		else if (findKeyword(statement, "console") >= 0){
+		// 			response = "Which console?";
+		// 		}
+		// 	}
+	
+			
+		// }
+
+		else if (findKeyword(statement, "games") >= 0){
+			response = "Do you play games?";
+			aboutGames  = true;
+			return response;
+		}
+
+		else if (aboutGames == true){
+			if (findKeyword(statement, "yes") >= 0){
+				response = "Do you play on PC or console?";
+				return response;
+			}
+			else if (findKeyword(statement, "no") >= 0){
+				response = "You should check some out, they're fun";
+				aboutGames = false;
+				return response;
+			}
+			else if (findKeyword(statement, "PC") >= 0){
+				response = "What games do you play?";
+				return response;
+			}
+			else if (findKeyword(statement, "console") >= 0){
+				response = "Xbox or PS4?";
+				return response;
+			}
+			else if (findKeyword(statement, "xbox") >= 0 || findKeyword(statement, "ps4") >= 0){
+				response = "What games do you play?";
+				return response;
+			}
+			else {
+				response = "I bet I can beat you at " + statement + " :)";
+				aboutGames = false;
+				return response;
+			}
 		}
 
 		// Casual Introductions
@@ -57,6 +125,8 @@ public class Magpie4
 				response = "Hey.";
 			}
 		}
+
+		
 
 		else if (findKeyword(statement, "no") >= 0)
 		{
