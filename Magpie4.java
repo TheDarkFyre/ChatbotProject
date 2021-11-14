@@ -22,7 +22,6 @@ public class Magpie4
 	}
 
 	public boolean aboutGames = false;
-	
 
 	/**
 	 * Gives a response to a user statement
@@ -177,10 +176,9 @@ public class Magpie4
 					.length() - 1);
 		}
 		
-		int psnOfThis = findKeyword (statement, "this", 0);
-		int psnOfIs = findKeyword (statement, "is", psnOfThis + 1);
+		int psn = findKeyword (statement, "this is", 0);
 		
-		String restOfStatement = statement.substring(psnOfThis + 1, psnOfIs).trim();
+		String restOfStatement = statement.substring(psn + 7).trim();
 		return "What did you mean by " + restOfStatement + "?";
 	}
 	
