@@ -41,40 +41,14 @@ public class Magpie4
 			response = "Say something, please.";
 		}
 
-		// else if (findKeyword(statement, "game") >= 0 || findKeyword(statement, "games") >= 0)
-		// {
-		// 	response = "Do you play video games?";
-		// 	return response;
-		// }
-
-		// if (aboutGames == true{
-
-		// }
-		// 	if (findKeyword(statement, "yes") >= 0 || findKeyword(statement, "yeah") >= 0){
-		// 		aboutGames = true;
-		// 	}
-		// 	else {
-		// 		response = "You should try playing some games, they could be fun.";
-		// 	}
-		// 	if (aboutGames = true){
-		// 		response = "Do you prefer PC or conole?";
-		// 		if (findKeyword(statement, "PC") >= 0){
-		// 			response = "Nice. What kind of games do you play on it?";
-		// 		}
-		// 		else if (findKeyword(statement, "console") >= 0){
-		// 			response = "Which console?";
-		// 		}
-		// 	}
-	
-			
-		// }
-
+		// Code to lead the human towards a specific topic
 		else if (findKeyword(statement, "games") >= 0){
 			response = "Do you play games?";
 			aboutGames  = true;
 			return response;
 		}
 
+		// Code that demonstrates interaction across the specific topic
 		else if (aboutGames == true){
 			if (findKeyword(statement, "yes") >= 0){
 				response = "Do you play on PC or console?";
@@ -126,8 +100,6 @@ public class Magpie4
 			}
 		}
 
-		
-
 		else if (findKeyword(statement, "no") >= 0)
 		{
 			response = "Why so negative?";
@@ -144,6 +116,12 @@ public class Magpie4
 		else if (findKeyword(statement, "I want to", 0) >= 0)
 		{
 			response = transformIWantToStatement(statement);
+		}
+
+		// Conversation that rewrites a sentance and asks  for more clarification
+		else if (findKeyword(statement, "this is", 0) >= 0)
+		{
+			response  = rewriteForClarification(statement);
 		}
 
 		else
@@ -187,7 +165,24 @@ public class Magpie4
 		return "What would it mean to " + restOfStatement + "?";
 	}
 
-	
+	private String rewriteForClarification(String statement)
+	{
+		//  Remove the final period, if there is one
+		statement = statement.trim();
+		String lastChar = statement.substring(statement
+				.length() - 1);
+		if (lastChar.equals("."))
+		{
+			statement = statement.substring(0, statement
+					.length() - 1);
+		}
+		
+		int psnOfThis = findKeyword (statement, "this", 0);
+		int psnOfIs = findKeyword (statement, "is", psnOfThis + 1);
+		
+		String restOfStatement = statement.substring(psnOfThis + 1, psnOfIs).trim();
+		return "What did you mean by " + restOfStatement + "?";
+	}
 	
 	/**
 	 * Take a statement with "you <something> me" and transform it into 
@@ -213,10 +208,6 @@ public class Magpie4
 		String restOfStatement = statement.substring(psnOfYou + 3, psnOfMe).trim();
 		return "What makes you think that I " + restOfStatement + " you?";
 	}
-	
-	
-
-	
 	
 	/**
 	 * Search for one word in phrase.  The search is not case sensitive.
